@@ -16,6 +16,7 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String error = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
