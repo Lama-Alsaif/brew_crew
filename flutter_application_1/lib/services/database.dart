@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_application_1/models/brew.dart';
 
 class DatabaseService {
   final String uid;
@@ -16,9 +17,19 @@ class DatabaseService {
       'strength': strength,
     });
   }
-  //get brews stream
 
-  Stream<QuerySnapshot> get brews {
-    return brewCollection.snapshots();
+//brew list from snapshot
+  List<Brew> _brewListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Brew(
+          name: doc.get('name') ?? '', //data replaced by get
+          sugars: doc.get('sugars') ?? '0',
+          strength: doc.get('strength') ?? 0);
+    }).toList();
+  }
+
+  //get brews stream
+  Stream<List<Brew>> get brews {
+    return brewCollection.snapshots().map((_brewListFromSnapshot));
   }
 }
