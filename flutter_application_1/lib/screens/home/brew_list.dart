@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/brew.dart';
+import 'package:flutter_application_1/screens/home/brew_tile.dart';
 import 'package:provider/provider.dart';
 
 class BrewList extends StatefulWidget {
