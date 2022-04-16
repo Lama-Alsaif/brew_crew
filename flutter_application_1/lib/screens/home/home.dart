@@ -32,6 +32,9 @@ class Home extends StatelessWidget {
           elevation: 0.0,
           actions: [
             TextButton.icon(
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+              ),
               icon: Icon(Icons.person),
               label: Text('logout'),
               onPressed: () async {
@@ -39,6 +42,9 @@ class Home extends StatelessWidget {
               },
             ),
             TextButton.icon(
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+              ),
               icon: Icon(Icons.settings),
               label: Text('settings'),
               onPressed: () {
@@ -47,7 +53,12 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        body: BrewList(),
+        body: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/coffee_bg.png'),
+                    fit: BoxFit.cover)),
+            child: const BrewList()),
       ),
     );
   }

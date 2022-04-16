@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/models/brew.dart';
+import 'package:flutter_application_1/models/user_acc.dart';
 
 class DatabaseService {
   final String uid;
@@ -10,7 +11,7 @@ class DatabaseService {
       .collection(
           'brews'); //Change the name from 'Firestore' to 'FirebaseFirestore'.
 
-  Future updateUserData(String sugars, String name, int strength) async {
+  Future<void> updateUserData(String sugars, String name, int strength) async {
     return await brewCollection.doc(uid).set({
       'sugars': sugars,
       'name': name,
@@ -28,8 +29,23 @@ class DatabaseService {
     }).toList();
   }
 
+//userData from snapshot
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+        uid: uid,
+        name: snapshot.get('name'),
+        sugars: snapshot.get('sugars'),
+        strength: snapshot.get('strength'));
+  }
+
   //get brews stream
   Stream<List<Brew>> get brews {
-    return brewCollection.snapshots().map((_brewListFromSnapshot));
+    return brewCollection.snapshots().map(_brewListFromSnapshot);
+  }
+
+  //get user doc stream
+
+  Stream<UserData> get userData {
+    return brewCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
 }
